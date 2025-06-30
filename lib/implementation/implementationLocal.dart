@@ -16,9 +16,12 @@ class ImplementationLocal implements Servicelocal {
   }
 
   @override
-  Future<User?> getUser() {
-    // TODO: implement getUser
-    throw UnimplementedError();
+  Future<User?> getUser() async {
+    if(box.hasData('user')) {
+      var userData = box.read('user');
+      return User.fromJson(userData);
+    }
+    return null;
   }
 
   @override

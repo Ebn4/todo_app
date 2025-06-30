@@ -25,8 +25,11 @@ class ImplementationLocal implements Servicelocal {
   }
 
   @override
-  Future<void> saveUser(User? user) {
-    // TODO: implement saveUser
-    throw UnimplementedError();
+  Future<void> saveUser(User? user) async{
+    if(user != null) {
+      await box.write('user', user.toJson());
+    } else {
+      await box.remove('user');
+    }
   }
 }

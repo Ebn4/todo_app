@@ -23,6 +23,17 @@ class Implementation implements Service01 {
     }
   }
   
+  @override
+  Future<bool>? deleteTask(int id) async{
+    var api = Uri.parse("$baseUrl/tasks/${id}");
+    var response = await http.delete(api);
+    if(response.statusCode == 200){
+      return true;
+    }else{
+      return false;
+    }
+  }
+  
   
 }
 

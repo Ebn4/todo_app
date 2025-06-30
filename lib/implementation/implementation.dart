@@ -34,6 +34,35 @@ class Implementation implements Service01 {
     }
   }
   
+  @override
+  Future<Task>? getTask(int id) async{
+    var api = Uri.parse("$baseUrl/tasks/${id}");
+    var response = await http.get(api);
+
+    if(response.statusCode == 200){
+      Task data = jsonDecode(response.body);
+      return data;
+    }else{
+      throw Exception("Failed to load tasks");
+    }
+  }
+  
+  @override
+  Future<List<Task>>? getTasks() async {
+    var api = Uri.parse("$baseUrl/tasks");
+    var response = await http.get(api);
+
+    if (response.statusCode == 200) {
+      List<Task> data =
+      jsonDecode(
+        response.body,
+      ).map<Task>((json) => Task.fromJson(json)).toList();
+      return data;
+    } else {
+      throw Exception("Failed to load tasks");
+    }
+  }
+  
   
 }
 
